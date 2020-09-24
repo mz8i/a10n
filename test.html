@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="test.css"/>
+<div id="logo">
+    <span id="test"></span>
+</div>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript">
+    var a10n = new Abbreviation('test', false, 'abbreviation', 100);
+
+    document.getElementById('logo').onmouseenter = function() {
+        a10n.expand();
+    }
+    document.getElementById('logo').onmouseleave = function() {
+        a10n.collapse();
+    }
+
+    setTimeout(() => a10n.collapse(), 1500);
+</script>
