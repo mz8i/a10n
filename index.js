@@ -35,9 +35,9 @@ function getBorders(widthLookup) {
 }
 
 function getFont(e) {
-    var font = window.getComputedStyle(e, 'font');
-    return ['font-style', 'font-variant', 'font-weight', 'font-size', 'line-height', 'font-family']
-        .map(x => font[x]).join(' ');
+    var style = window.getComputedStyle(e);
+    return ['font-style', 'font-variant', 'font-weight', 'font-size', 'font-family']
+        .map(x => style[x]).join(' ');
 }
 
 function getNumberShown(borders, width) {
@@ -70,7 +70,9 @@ function Abbreviation(id, collapsed, text, speed) {
 
     this.fullWidth = this.middleElem.offsetWidth;
     
-    this.middleElem.style.width = (this.collapsed ? 0 : this.fullWidth)+'px';
+    if(this.collapsed) {
+        this.middleElem.style.width ='0px';
+    }
     this.numberShown = this.collapsed ? 0 : this.middle.length;
     this.updateText();
 
@@ -87,6 +89,10 @@ Abbreviation.prototype.updateText = function() {
 
 Abbreviation.prototype.toggleCollapsed = function(collapsed) {
     if(this.animationFrame) cancelAnimationFrame(this.animationFrame);
+    
+    if(this.middleElem.style.width==='') {
+        this.middleElem.style.width = this.middleElem.offsetWidth + 'px';
+    }
 
     this.collapsed = collapsed;
 
